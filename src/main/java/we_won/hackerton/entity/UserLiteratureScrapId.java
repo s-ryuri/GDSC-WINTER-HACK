@@ -9,7 +9,7 @@ public class UserLiteratureScrapId implements Serializable {
 
     public UserLiteratureScrapId() {}
 
-    public UserLiteratureScrapId(int user, int literature) {
+    public UserLiteratureScrapId(long user, long literature) {
         this.user = user;
         this.literature = literature;
     }

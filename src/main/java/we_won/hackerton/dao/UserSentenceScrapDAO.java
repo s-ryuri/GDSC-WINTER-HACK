@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface UserSentenceScrapDAO extends JpaRepository<UserSentenceScrap, UserSentenceScrapID> {
     List<UserSentenceScrap> findAllByUser_id(long user_id);
+
 }
