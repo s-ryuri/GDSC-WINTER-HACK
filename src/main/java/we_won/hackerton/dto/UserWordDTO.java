@@ -12,15 +12,13 @@ public class UserWordDTO {
     private long wordId;
     private String username;
     private String sentence;
-    private String meaning;
     private String word;
 
     @Builder
-    public UserWordDTO(long wordId, String username, String sentence, String meaning, String word) {
+    public UserWordDTO(long wordId, String username, String sentence, String word) {
         this.wordId = wordId;
         this.username = username;
         this.sentence = sentence;
-        this.meaning = meaning;
         this.word = word;
     }
 
@@ -31,7 +29,6 @@ public class UserWordDTO {
         return Word.builder()
                 .id(this.wordId)
                 .sentence(this.sentence)
-                .meaning(this.meaning)
                 .word(this.word)
                 .build();
     }

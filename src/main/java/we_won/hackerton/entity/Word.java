@@ -23,18 +23,18 @@ public class Word {
     @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String sentence; //문장
 
-    @Column(nullable = false)
-    private String meaning; //단어의 뜻
+//    @Column(nullable = false)
+//    private String meaning; //단어의 뜻
 
     @Column(nullable = false)
     private String word;
 
 
     @Builder
-    public Word(long id, String sentence, String meaning, String word) {
+    public Word(long id, String sentence, String word) {
         this.id = id;
         this.sentence = sentence;
-        this.meaning = meaning;
+//        this.meaning = meaning;
         this.word = word;
     }
 }

@@ -27,6 +27,7 @@ public class SentenceController {
     private final UserSentenceScrapDAO userSentenceScrapDAO;
     private final UserRepository userRepository;
     private final SentenceRepository sentenceRepository;
+
     @GetMapping("/{title}")
     public ResponseEntity<?> getLiteratureInfo(@PathVariable("title") String title){
         Literature literature = literatureRepository.findByTitle(title);
