@@ -15,6 +15,7 @@ public class UserSentenceDTO {
     private String title;
 
 
+
     @Builder
     public UserSentenceDTO(String username, String sentence, String title, long sentenceId) {
         this.username = username;
@@ -24,7 +25,7 @@ public class UserSentenceDTO {
     }
     public Sentence toEntity(){
         return Sentence.builder()
-                .id(sentenceId)
+                .id(this.sentenceId)
                 .sentence(this.sentence)
                 .title(this.title)
                 .build();

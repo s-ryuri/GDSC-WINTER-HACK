@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import we_won.hackerton.Interface.LiteratureRepository;
 import we_won.hackerton.Interface.UserRepository;
 import we_won.hackerton.dao.UserLiteratureScrapDAO;
-import we_won.hackerton.dto.LiteratureDeleteDto;
+import we_won.hackerton.dto.DeleteDTO;
 import we_won.hackerton.entity.Literature;
 import we_won.hackerton.entity.UserLiteratureScrapId;
 import we_won.hackerton.entity.User_;
@@ -44,10 +44,10 @@ public class LiteratureController {
     }
 
     @DeleteMapping("")
-    public ResponseEntity<?> deleteLiterature(@RequestBody LiteratureDeleteDto literatureDeleteDto){
-        Optional<User_> user = userRepository.findByUsername(literatureDeleteDto.getUsername());
+    public ResponseEntity<?> deleteLiterature(@RequestBody DeleteDTO deleteDTO){
+        Optional<User_> user = userRepository.findByUsername(deleteDTO.getUsername());
 
-        Optional<Literature> literature = literatureRepository.findById(literatureDeleteDto.getLiteratureId());
+        Optional<Literature> literature = literatureRepository.findById(deleteDTO.getId());
         UserLiteratureScrapId id = new UserLiteratureScrapId(user.get().getId(),literature.get().getId());
         userLiteratureScrapDAO.deleteById(id);
         HashMap<String,String> result = new HashMap<>();

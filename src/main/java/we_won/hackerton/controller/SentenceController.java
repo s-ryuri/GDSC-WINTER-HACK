@@ -8,7 +8,7 @@ import we_won.hackerton.Interface.LiteratureRepository;
 import we_won.hackerton.Interface.SentenceRepository;
 import we_won.hackerton.Interface.UserRepository;
 import we_won.hackerton.dao.UserSentenceScrapDAO;
-import we_won.hackerton.dto.SentenceDeleteDTO;
+import we_won.hackerton.dto.DeleteDTO;
 import we_won.hackerton.entity.Literature;
 import we_won.hackerton.entity.Sentence;
 import we_won.hackerton.entity.UserSentenceScrapID;
@@ -33,10 +33,10 @@ public class SentenceController {
         return new ResponseEntity<>(literature,HttpStatus.CREATED);
     }
     @DeleteMapping("")
-    public ResponseEntity<?> deleteLiterature(@RequestBody SentenceDeleteDTO sentenceDeleteDTO){
-        Optional<User_> user = userRepository.findByUsername(sentenceDeleteDTO.getUsername());
+    public ResponseEntity<?> deleteLiterature(@RequestBody DeleteDTO deleteDTO){
+        Optional<User_> user = userRepository.findByUsername(deleteDTO.getUsername());
 
-        Optional<Sentence> sentence = sentenceRepository.findById(sentenceDeleteDTO.getSentenceId());
+        Optional<Sentence> sentence = sentenceRepository.findById(deleteDTO.getId());
         UserSentenceScrapID id = new UserSentenceScrapID(user.get().getId(),sentence.get().getId());
         userSentenceScrapDAO.deleteById(id);
         HashMap<String,String> result = new HashMap<>();

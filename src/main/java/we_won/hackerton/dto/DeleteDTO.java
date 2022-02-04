@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LiteratureDeleteDto {
-
+public class DeleteDTO {
     private String username;
-    private long literatureId;
+    private long id;
 }

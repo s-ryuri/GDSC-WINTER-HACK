@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.*;
 import we_won.hackerton.Interface.LiteratureRepository;
 import we_won.hackerton.Interface.SentenceRepository;
 import we_won.hackerton.Interface.UserRepository;
+import we_won.hackerton.Interface.WordRepository;
 import we_won.hackerton.dao.UserLiteratureScrapDAO;
 import we_won.hackerton.dao.UserSentenceScrapDAO;
+import we_won.hackerton.dao.UserWordScrapDAO;
 import we_won.hackerton.dto.UserFormDTO;
 import we_won.hackerton.dto.UserScrapDTO;
 import we_won.hackerton.dto.UserSentenceDTO;
+import we_won.hackerton.dto.UserWordDTO;
 import we_won.hackerton.entity.*;
 import we_won.hackerton.response.SuccessResponse;
 import we_won.hackerton.service.UserServiceImpl;
@@ -34,6 +37,8 @@ public class UserController {
     private final UserLiteratureScrapDAO userLiteratureScrapDAO;
     private final UserSentenceScrapDAO userSentenceScrapDAO;
     private final SentenceRepository sentenceRepository;
+    private final WordRepository wordRepository;
+    private final UserWordScrapDAO userWordScrapDAO;
 //    @PostMapping("/{username}")
 //    public ResponseEntity<?> checkUsernameDuplicate(@PathVariable String username){
 //        //System.out.println(user);
@@ -121,6 +126,7 @@ public class UserController {
         return new ResponseEntity<>(result,HttpStatus.OK);
 
     }
+
     @GetMapping("/scrap/sentence/{username}")
     public ResponseEntity<?> scrapSentenceList(@PathVariable("username") String username){
         final User_ user = userRepository.getByUsername(username);
@@ -133,5 +139,34 @@ public class UserController {
 
     }
 
+    @PostMapping("scrap/word") //문장을 스크랩할 때
+    public ResponseEntity<?> userWordScrap(@RequestBody UserWordDTO userWordDTO){
+        wordRepository.save(userWordDTO.toEntity()); //sentence DB에 저장
+        final UserWordScrap newScrap = new UserWordScrap();
+        final User_ user = userRepository.getByUsername(userWordDTO.getUsername());
+        final Word word = wordRepository.getById(userWordDTO.getWordId());
+        final SuccessResponse result = new SuccessResponse<>();
+
+        newScrap.setUser(user);
+        newScrap.setWord(word);
+
+        userWordScrapDAO.save(newScrap);
+        result.setSuccess(true);
+        result.setData("success");
+        return new ResponseEntity<>(result,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/scrap/word/{username}")
+    public ResponseEntity<?> scrapWordList(@PathVariable("username") String username){
+        final User_ user = userRepository.getByUsername(username);
+        final List<UserWordScrap> scrapList = userWordScrapDAO.findAllByUser_id(user.getId());
+        final List<Word> word_list = new ArrayList<>();
+        for(int i = 0;i<scrapList.size();i++){
+            word_list.add(scrapList.get(i).getWord());
+        }
+        return new ResponseEntity<>(word_list, HttpStatus.OK);
+
+    }
 
 }
