@@ -13,4 +13,5 @@ public interface LiteratureRepository extends JpaRepository<Literature,Long> {
     List<Literature> findAll();
 
     Literature getByTitle(String title);
+    Literature findByTitle(String title);
 }
