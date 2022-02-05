@@ -7,18 +7,17 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Word {
+public class Word extends BaseEntity {
 
-    @Id
-    @Column(nullable = false)
-    private long id;
+//    @Id
+//    @Column(nullable = false)
+//    private long id;
 
     @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String sentence; //문장
@@ -31,8 +30,7 @@ public class Word {
 
 
     @Builder
-    public Word(long id, String sentence, String word) {
-        this.id = id;
+    public Word(String sentence, String word) {
         this.sentence = sentence;
 //        this.meaning = meaning;
         this.word = word;

@@ -9,14 +9,14 @@ import we_won.hackerton.entity.Word;
 @NoArgsConstructor
 public class UserWordDTO {
 
-    private long wordId;
+    //private long wordId;
     private String username;
     private String sentence;
     private String word;
 
     @Builder
-    public UserWordDTO(long wordId, String username, String sentence, String word) {
-        this.wordId = wordId;
+    public UserWordDTO(String username, String sentence, String word) {
+        //this.wordId = wordId;
         this.username = username;
         this.sentence = sentence;
         this.word = word;
@@ -27,7 +27,6 @@ public class UserWordDTO {
 
     public Word toEntity(){
         return Word.builder()
-                .id(this.wordId)
                 .sentence(this.sentence)
                 .word(this.word)
                 .build();

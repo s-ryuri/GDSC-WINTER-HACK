@@ -144,7 +144,7 @@ public class UserController {
         wordRepository.save(userWordDTO.toEntity()); //sentence DB에 저장
         final UserWordScrap newScrap = new UserWordScrap();
         final User_ user = userRepository.getByUsername(userWordDTO.getUsername());
-        final Word word = wordRepository.getById(userWordDTO.getWordId());
+        final Word word = wordRepository.findByWord(userWordDTO.getWord());
         final SuccessResponse result = new SuccessResponse<>();
 
         newScrap.setUser(user);
